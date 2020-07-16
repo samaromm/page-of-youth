@@ -24,17 +24,16 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
-const Navbar = () => {
-  return (
+const Navbar = ({ loggedIn }) => {
+    return (
     <FixedWrapper>
-      <Container>
-        <Wrapper>
-          <NavItems />      
-          <Logo />
-        </Wrapper>
-      </Container>
+        <Container>
+            <Wrapper>
+                <Logo />
+                <NavItems loggedIn={loggedIn} />
+            </Wrapper>
+        </Container>
     </FixedWrapper>
-  );
+);
 };
-
 export default Navbar;

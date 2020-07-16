@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const StyledButton = styled.button`
   width: 100%;
@@ -10,7 +10,7 @@ const StyledButton = styled.button`
   color: var(--color-white);
   font-weight: 700;
   box-shadow: 0rem 0.5rem 3.5rem var(--shadow);
-  background-color: #F43F54;
+  background-color: #f43f54;
   border: none;
   transition: all 0.2s;
   &:hover {
@@ -21,14 +21,14 @@ const StyledButton = styled.button`
   }
   &:disabled {
     cursor: not-allowed;
-    background-color:  #F43F54;
+    background-color: #f43f54;
   }
 `;
 
-const Button = ({ children, disabled, ...rest }) => {
+const Button = ({ children, disabled, loading, ...rest }) => {
   return (
     <StyledButton disabled={disabled} {...rest}>
-      {children}
+      {loading ? loading : children}
     </StyledButton>
   );
 };

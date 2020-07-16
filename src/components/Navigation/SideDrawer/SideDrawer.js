@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 
-import Logo from '../../Logo/Logo';
-import NavItems from '../NavItems/NavItems';
-import Hamburger from './Hamburger/Hamburger';
+import Logo from "../../Logo/Logo";
+import NavItems from "../NavItems/NavItems";
+import Hamburger from "./Hamburger/Hamburger";
 
 const FixedWrapper = styled.header`
   position: fixed;
-  background-color: #F43F54;
+  background-color: #f43f54;
   padding: 0rem 2rem;
   z-index: 10;
   top: 0;
@@ -15,7 +15,7 @@ const FixedWrapper = styled.header`
   width: 100%;
   height: 6rem;
   display: none;
-  @media ${props => props.theme.mediaQueries.smallest} {
+  @media ${(props) => props.theme.mediaQueries.smallest} {
     display: flex;
   }
 `;
@@ -38,17 +38,18 @@ const Menu = styled.div`
   justify-content: center;
   margin-top: 6rem;
   height: 100vh;
-  background-color:#F43F54;
-  visibility: ${props => (props.opened ? 'visibile' : 'hidden')};
-  transform: translateY(${props => (props.opened ? '0%' : '-100%')});
+  z-index:1;
+  background-color: #f43f54;
+  visibility: ${(props) => (props.opened ? "visibile" : "hidden")};
+  transform: translateY(${(props) => (props.opened ? "0%" : "-100%")});
   transition: all 0.1s cubic-bezier(0.445, 0.05, 0.55, 0.95);
   display: none;
-  @media ${props => props.theme.mediaQueries.smallest} {
+  @media ${(props) => props.theme.mediaQueries.smallest} {
     display: flex;
   }
 `;
 
-const SideDrawer = () => {
+const SideDrawer = ({ loggedIn }) => {
   const [isOpened, setIsOpened] = useState(false);
   return (
     <>
@@ -59,7 +60,11 @@ const SideDrawer = () => {
         </Wrapper>
       </FixedWrapper>
       <Menu opened={isOpened}>
-        <NavItems mobile clicked={() => setIsOpened(false)} />
+        <NavItems
+          loggedIn={loggedIn}
+          mobile
+          clicked={() => setIsOpened(false)}
+        />
       </Menu>
     </>
   );
