@@ -38,7 +38,7 @@ const Menu = styled.div`
   justify-content: center;
   margin-top: 6rem;
   height: 100vh;
-  z-index:1;
+  z-index:5;
   background-color: #f43f54;
   visibility: ${(props) => (props.opened ? "visibile" : "hidden")};
   transform: translateY(${(props) => (props.opened ? "0%" : "-100%")});
