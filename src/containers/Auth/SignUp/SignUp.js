@@ -14,7 +14,7 @@ import * as actions from '../../../store/actions';
 
 const MessageWrapper = styled.div`
   position: absolute;
-  bottom: 0;
+  bottom: -2rem;
 `;
 
 const SignUpSchema = Yup.object().shape({
@@ -61,8 +61,11 @@ const SignUp = ({ signUp, loading, error, cleanUp }) => {
     >
       {({ isSubmitting, isValid }) => (
         <FormWrapper>
-          <Heading noMargin size="h1">
-            Sign up
+          <Heading noMargin size="h1" color="white">
+            Sign up for an account
+          </Heading>
+          <Heading bold size="h4" color="white">
+            Fill in your details to register your new account
           </Heading>
           <StyledForm>
             <Field
