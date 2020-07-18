@@ -6,7 +6,7 @@ import Layout from './layout/Layout';
 import Login from './containers/Auth/Login/Login';
 import SignUp from './containers/Auth/SignUp/SignUp';
 import Logout from './containers/Auth/Logout/Logout';
-import Todos from './containers/Todos/Todos';
+import Calender from './containers/Todos/CalenderView';
 import Profile from './containers/Auth/Profile/Profile';
 import VerifyEmail from './containers/Auth/VerifyEmail/VerifyEmail';
 import RecoverPassword from './containers/Auth/RecoverPassword/RecoverPassword';
@@ -25,7 +25,7 @@ const App = ({ loggedIn, emailVerified }) => {
   } else if (loggedIn && emailVerified) {
     routes = (
       <Switch>
-        <Route exact path="/" component={Todos} />
+        <Route exact path="/" component={Calender} />
         <Route exact path="/profile" component={Profile} />
         <Route exact path="/logout" component={Logout} />
         <Redirect to="/" />
