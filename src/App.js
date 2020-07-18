@@ -6,7 +6,7 @@ import Layout from './layout/Layout';
 import Login from './containers/Auth/Login/Login';
 import SignUp from './containers/Auth/SignUp/SignUp';
 import Logout from './containers/Auth/Logout/Logout';
-import Calender from './containers/Todos/CalenderView';
+import Calender from './containers/Todos/AddTodo/calender';
 import Profile from './containers/Auth/Profile/Profile';
 import VerifyEmail from './containers/Auth/VerifyEmail/VerifyEmail';
 import RecoverPassword from './containers/Auth/RecoverPassword/RecoverPassword';

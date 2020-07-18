@@ -1,23 +1,21 @@
-import React from 'react'
-import { Calendar, Views, momentLocalizer } from 'react-big-calendar'
+import React from "react";
+import { Calendar, Views, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "./calender.css";
-import events from './todos'
-import ExampleControlSlot from './ControlSlots'
-import AddTodo from './AddTodo/AddTodo'
+import events from "../todos";
 
 const localizer = momentLocalizer(moment);
-const propTypes = {}
+const propTypes = {};
 
 class Selectable extends React.Component {
   constructor(...args) {
-    super(...args)
+    super(...args);
 
-    this.state = { events }
+    this.state = { events };
   }
 
   handleSelect = ({ start, end }) => {
-    const title = window.prompt('New Event name')
+    const title = window.prompt("New Event name");
     if (title)
       this.setState({
         events: [
@@ -28,8 +26,8 @@ class Selectable extends React.Component {
             title,
           },
         ],
-      })
-  }
+      });
+  };
 
   render() {
     return (
@@ -41,15 +39,15 @@ class Selectable extends React.Component {
           defaultView={Views.Month}
           scrollToTime={new Date(1970, 1, 1, 6)}
           defaultDate={moment().toDate()}
-          onSelectEvent={event => alert(event.title)}
+          onSelectEvent={(event) => alert(event.title)}
           onSelectSlot={this.handleSelect}
-          style={{height:"120vh", margin:"20px"}}
+          style={{ height: "120vh", margin: "20px" }}
         />
       </>
-    )
+    );
   }
 }
 
-Selectable.propTypes = propTypes
+Selectable.propTypes = propTypes;
 
-export default Selectable
+export default Selectable;
