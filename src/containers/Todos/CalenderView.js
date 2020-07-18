@@ -4,6 +4,7 @@ import moment from "moment";
 import "./calender.css";
 import events from './todos'
 import ExampleControlSlot from './ControlSlots'
+import AddTodo from './AddTodo/AddTodo'
 
 const localizer = momentLocalizer(moment);
 const propTypes = {}
