@@ -7,8 +7,7 @@ import AddTodo from "./AddTodo/AddTodo";
 
 const Todos = ({ todos, requesting, requested, userId }) => {
   let objArr = [];
-  if (todos && !(!todos[userId] && requested[`todos/${userId}`])) {
-    window.location.reload(false);
+  if (todos && !(!todos[userId] || requested[`todos/${userId}`])) {
     todos[userId].todos.map((todo) =>
       objArr.push({
         title: todo.title,

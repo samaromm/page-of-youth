@@ -38,14 +38,12 @@ const TodoSchema = Yup.object().shape({
 });
 
 const AddTodo = ({ events, addTodo, loading, error }) => {
-  const [isOpened, setisOpened] = useState(true);
+  const [isOpened, setisOpened] = useState(false);
 
   const handleSelect = ({ start, end }) => {
-    setisOpened(true);
     return (
       <>
         <Modal opened={isOpened} close={() => setisOpened(false)}>
-          {console.log(isOpened)}
           <Heading size="h1">Add your new todo</Heading>
           <Formik
             initialValues={{
@@ -98,8 +96,12 @@ const AddTodo = ({ events, addTodo, loading, error }) => {
     );
   };
 
+  const toggleAddModal = event => {
+    setisOpened(!isOpened)
+  };
+
   return (
-    <>
+    <div>
       <Calendar
         selectable
         localizer={localizer}
@@ -108,10 +110,59 @@ const AddTodo = ({ events, addTodo, loading, error }) => {
         scrollToTime={new Date(1970, 1, 1, 6)}
         defaultDate={moment().toDate()}
         onSelectEvent={(event) => alert(event.title)}
-        onSelectSlot={handleSelect}
-        style={{ height: "100vh", margin: "20px", width:"100vh" }}
+        onSelectSlot={toggleAddModal}
+        style={{ height: "100vh", margin: "20px", width: "100vh" }}
       />
-    </>
+      <Modal opened={isOpened} close={() => setisOpened(false)}  toggle={toggleAddModal}>
+          <Heading size="h1">Add your new todo</Heading>
+          <Formik
+            initialValues={{
+              title: "",
+              start: start,
+              end: end,
+            }}
+            validationSchema={TodoSchema}
+            onSubmit={async (values, { setSubmitting, resetForm }) => {
+              // send our todo
+              const res = await addTodo(values);
+              setSubmitting(false);
+              if (res) {
+                setisOpened(false);
+              }
+              resetForm();
+            }}
+          >
+            {({ isSubmitting, isValid }) => (
+              <StyledForm>
+                <Field
+                  type="text"
+                  name="todo"
+                  placeholder="Write your todo..."
+                  component={Input}
+                />
+                <ButtonsWrapper>
+                  <Button
+                    contain
+                    type="submit"
+                    disabled={!isValid || isSubmitting}
+                    loading={loading ? "Adding..." : null}
+                  >
+                    Add todo
+                  </Button>
+                  <Button contain onClick={() => setisOpened(false)}>
+                    Cancel
+                  </Button>
+                </ButtonsWrapper>
+                <MessageWrapper>
+                  <Message error show={error}>
+                    {error}
+                  </Message>
+                </MessageWrapper>
+              </StyledForm>
+            )}
+          </Formik>
+        </Modal>
+    </div>
   );
 };
 
