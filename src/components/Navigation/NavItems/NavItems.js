@@ -17,6 +17,7 @@ const Ul = styled.ul`
 
 const NavItems = ({ mobile, clicked, loggedIn }) => {
   let links;
+
   if (loggedIn.uid) {
     links = (
       <Ul mobile={mobile}>

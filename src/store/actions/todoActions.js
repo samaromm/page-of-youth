@@ -16,9 +16,9 @@ export const addTodo = data => async (
       .get();
     const newTodo = {
       id: new Date().valueOf(),
-      todo: data.todo,
-      start: data.start,
-      end: data.end,
+      title: data.title,
+      start:data.start,
+      end:data.end,
     };
     if (!res.data()) {
       firestore
