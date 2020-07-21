@@ -1,29 +1,28 @@
-import React from "react";
-import { compose } from "redux";
-import { connect } from "react-redux";
-import { firestoreConnect } from "react-redux-firebase";
+import React from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase';
 
-import AddTodo from "./AddTodo/AddTodo";
+import Todo from './Todo/Todo.js';
 
 const Todos = ({ todos, requesting, requested, userId }) => {
-  let objArr = [];
-  if (todos && !(!todos[userId] || requested[`todos/${userId}`])) {
-    todos[userId].todos.map((todo) =>
-      objArr.push({
-        title: todo.title,
-        id: todo.id,
-        start: todo.start,
-        end: todo.end,
-      })
-    );
-  }
+  let content=[]
+  if(todos && !((!todos[userId] && requested[`todos/${userId}`]) ||
+  todos[userId].todos.length === 0)) {
+        todos[userId].todos.map(todo => (
+          content.push({
+            title: todo.title,
+            id: todo.id,
+            start: todo.start,
+            end: todo.end,
+          })
+      ))
+    };
 
-  return (
-    <>
-      <AddTodo events={objArr} />
-    </>
-  );
-};
+    return (
+      <Todo events={content}/>
+    );
+};  
 
 const mapStateToProps = ({ firebase, firestore }) => ({
   userId: firebase.auth.uid,
@@ -35,6 +34,9 @@ const mapStateToProps = ({ firebase, firestore }) => ({
 const mapDispatchToProps = {};
 
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect((props) => [`todos/${props.userId}`])
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  firestoreConnect(props => [`todos/${props.userId}`])
 )(Todos);

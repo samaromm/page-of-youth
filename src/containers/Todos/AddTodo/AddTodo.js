@@ -39,69 +39,18 @@ const TodoSchema = Yup.object().shape({
 
 const AddTodo = ({ events, addTodo, loading, error }) => {
   const [isOpened, setisOpened] = useState(false);
+  const [startVal, setStartVal] = useState(moment().toDate());
+  const [endVal, setEndVal] = useState(moment().toDate());
 
-  const handleSelect = ({ start, end }) => {
-    return (
-      <>
-        <Modal opened={isOpened} close={() => setisOpened(false)}>
-          <Heading size="h1">Add your new todo</Heading>
-          <Formik
-            initialValues={{
-              title: "",
-              start: start,
-              end: end,
-            }}
-            validationSchema={TodoSchema}
-            onSubmit={async (values, { setSubmitting, resetForm }) => {
-              // send our todo
-              const res = await addTodo(values);
-              setSubmitting(false);
-              if (res) {
-                setisOpened(false);
-              }
-              resetForm();
-            }}
-          >
-            {({ isSubmitting, isValid }) => (
-              <StyledForm>
-                <Field
-                  type="text"
-                  name="todo"
-                  placeholder="Write your todo..."
-                  component={Input}
-                />
-                <ButtonsWrapper>
-                  <Button
-                    contain
-                    type="submit"
-                    disabled={!isValid || isSubmitting}
-                    loading={loading ? "Adding..." : null}
-                  >
-                    Add todo
-                  </Button>
-                  <Button contain onClick={() => setisOpened(false)}>
-                    Cancel
-                  </Button>
-                </ButtonsWrapper>
-                <MessageWrapper>
-                  <Message error show={error}>
-                    {error}
-                  </Message>
-                </MessageWrapper>
-              </StyledForm>
-            )}
-          </Formik>
-        </Modal>
-      </>
-    );
-  };
-
-  const toggleAddModal = event => {
-    setisOpened(!isOpened)
+  const toggleAddModal = ({ start, end }) => {
+    setisOpened(!isOpened);
+    setStartVal(start);
+    setEndVal(end)
+    {console.log(events)}
   };
 
   return (
-    <div>
+    <>
       <Calendar
         selectable
         localizer={localizer}
@@ -113,56 +62,62 @@ const AddTodo = ({ events, addTodo, loading, error }) => {
         onSelectSlot={toggleAddModal}
         style={{ height: "100vh", margin: "20px", width: "100vh" }}
       />
-      <Modal opened={isOpened} close={() => setisOpened(false)}  toggle={toggleAddModal}>
-          <Heading size="h1">Add your new todo</Heading>
-          <Formik
-            initialValues={{
-              title: "",
-              start: start,
-              end: end,
-            }}
-            validationSchema={TodoSchema}
-            onSubmit={async (values, { setSubmitting, resetForm }) => {
-              // send our todo
-              const res = await addTodo(values);
-              setSubmitting(false);
-              if (res) {
-                setisOpened(false);
-              }
-              resetForm();
-            }}
-          >
-            {({ isSubmitting, isValid }) => (
-              <StyledForm>
-                <Field
-                  type="text"
-                  name="todo"
-                  placeholder="Write your todo..."
-                  component={Input}
-                />
-                <ButtonsWrapper>
-                  <Button
-                    contain
-                    type="submit"
-                    disabled={!isValid || isSubmitting}
-                    loading={loading ? "Adding..." : null}
-                  >
-                    Add todo
-                  </Button>
-                  <Button contain onClick={() => setisOpened(false)}>
-                    Cancel
-                  </Button>
-                </ButtonsWrapper>
-                <MessageWrapper>
-                  <Message error show={error}>
-                    {error}
-                  </Message>
-                </MessageWrapper>
-              </StyledForm>
-            )}
-          </Formik>
-        </Modal>
-    </div>
+      <Modal
+        opened={isOpened}
+        close={() => setisOpened(false)}
+        toggle={toggleAddModal}
+      >
+        <Heading size="h1">Add your new todo</Heading>
+        
+        {console.log(startVal+" "+endVal)}
+        <Formik
+          initialValues={{
+            title: "gewfewf",
+            start: startVal,
+            end: endVal,
+          }}
+          validationSchema={TodoSchema}
+          onSubmit={async (values, { setSubmitting, resetForm }) => {
+            // send our todo
+            const res = await addTodo(values);
+            setSubmitting(false);
+            if (res) {
+              setisOpened(false);
+            }
+            resetForm();
+          }}
+        >
+          {({ isSubmitting, isValid, resetForm }) => (
+            <StyledForm>
+              <Field
+                type="text"
+                name="todo"
+                placeholder="Write your todo..."
+                component={Input}
+              />
+              <ButtonsWrapper>
+                <Button
+                  contain
+                  type="submit"
+                  disabled={!isValid || isSubmitting}
+                  loading={loading ? "Adding..." : null}
+                >
+                  Add todo
+                </Button>
+                <Button contain onClick={() => {setisOpened(false);  resetForm();}}>
+                  Cancel
+                </Button>
+              </ButtonsWrapper>
+              <MessageWrapper>
+                <Message error show={error}>
+                  {error}
+                </Message>
+              </MessageWrapper>
+            </StyledForm>
+          )}
+        </Formik>
+      </Modal>
+    </>
   );
 };
 
