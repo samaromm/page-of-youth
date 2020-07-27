@@ -46,8 +46,6 @@ const AddTodo = ({ events, addTodo, loading, error }) => {
     setisOpened(!isOpened);
     setStartVal(start.toString());
     setEndVal(end.toString())
-    {console.log(events)}
-    {console.log(start.toString())}
   };
 
   return (
