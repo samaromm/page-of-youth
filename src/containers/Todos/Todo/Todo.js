@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { Formik, Field } from "formik";
 import moment from "moment";
 
-import "../AddTodo/calender.css";
+import "./calender.css";
 import Button from "../../../components/UI/Forms/Button/Button";
 import Heading from "../../../components/UI/Headings/Heading";
 import Modal from "../../../components/UI/Modal";
@@ -39,14 +39,15 @@ const TodoSchema = Yup.object().shape({
 
 const AddTodo = ({ events, addTodo, loading, error }) => {
   const [isOpened, setisOpened] = useState(false);
-  const [startVal, setStartVal] = useState(moment().toDate());
-  const [endVal, setEndVal] = useState(moment().toDate());
+  const [startVal, setStartVal] = useState("Tue July 21 2020 19:30:00 GMT+0300 (Arabian Standard Time)");
+  const [endVal, setEndVal] = useState("Wed July 22 2020 19:30:00 GMT+0300 (Arabian Standard Time)");
 
   const toggleAddModal = ({ start, end }) => {
     setisOpened(!isOpened);
-    setStartVal(start);
-    setEndVal(end)
+    setStartVal(start.toString());
+    setEndVal(end.toString())
     {console.log(events)}
+    {console.log(start.toString())}
   };
 
   return (
@@ -62,23 +63,22 @@ const AddTodo = ({ events, addTodo, loading, error }) => {
         onSelectSlot={toggleAddModal}
         style={{ height: "100vh", margin: "20px", width: "100vh" }}
       />
-      <Modal
-        opened={isOpened}
-        close={() => setisOpened(false)}
-        toggle={toggleAddModal}
-      >
-        <Heading size="h1">Add your new todo</Heading>
-        
-        {console.log(startVal+" "+endVal)}
+      <Modal opened={isOpened} close={() => setisOpened(false)}>
+        <Heading noMargin size="h1" color="white">
+          Add your new todo
+          {console.log(startVal)}
+        </Heading>
+        <Heading bold size="h4" color="white">
+          Type your todo and press add
+        </Heading>
         <Formik
           initialValues={{
-            title: "gewfewf",
-            start: startVal,
-            end: endVal,
+            title: '',
+            start:startVal,
+            end:endVal
           }}
           validationSchema={TodoSchema}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
-            // send our todo
             const res = await addTodo(values);
             setSubmitting(false);
             if (res) {
@@ -87,7 +87,7 @@ const AddTodo = ({ events, addTodo, loading, error }) => {
             resetForm();
           }}
         >
-          {({ isSubmitting, isValid, resetForm }) => (
+          {({ isSubmitting, isValid }) => (
             <StyledForm>
               <Field
                 type="text"
@@ -98,13 +98,14 @@ const AddTodo = ({ events, addTodo, loading, error }) => {
               <ButtonsWrapper>
                 <Button
                   contain
+                  color="main"
                   type="submit"
                   disabled={!isValid || isSubmitting}
-                  loading={loading ? "Adding..." : null}
+                  loading={loading ? 'Adding...' : null}
                 >
                   Add todo
                 </Button>
-                <Button contain onClick={() => {setisOpened(false);  resetForm();}}>
+                <Button color="main" contain onClick={() => setisOpened(false)}>
                   Cancel
                 </Button>
               </ButtonsWrapper>
@@ -120,8 +121,6 @@ const AddTodo = ({ events, addTodo, loading, error }) => {
     </>
   );
 };
-
-AddTodo.propTypes = propTypes;
 
 const mapStateToProps = ({ todos }) => ({
   loading: todos.loading,

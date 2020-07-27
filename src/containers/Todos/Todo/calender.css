@@ -509,9 +509,6 @@ button.rbc-input::-moz-focus-inner {
   left: 0;
   right: 0;
   height: 1px;
-  background-color: #74ad31;
+  background-color: #000;
   pointer-events: none; }
 
-  .rbc-event {
-    z-index: 999 !important;
-  }
