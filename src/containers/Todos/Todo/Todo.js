@@ -55,6 +55,7 @@ const AddTodo = ({ events, addTodo, loading, error }) => {
         localizer={localizer}
         events={events}
         defaultView={Views.Month}
+        views={['month', 'agenda']}
         scrollToTime={new Date(1970, 1, 1, 6)}
         defaultDate={moment().toDate()}
         onSelectEvent={(event) => alert(event.title)}
