@@ -5,7 +5,7 @@ import { firestoreConnect } from 'react-redux-firebase';
 
 import Todo from './Todo/Todo.js';
 
-const Todos = ({ todos, requesting, requested, userId }) => {
+const Todos = ({ todos, requested, userId }) => {
   let content=[]
   if(todos && !((!todos[userId] && requested[`todos/${userId}`]) ||
   todos[userId].todos.length === 0)) {

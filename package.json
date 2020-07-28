@@ -13,6 +13,7 @@
     "react": "^16.13.1",
     "react-big-calendar": "^0.26.0",
     "react-dom": "^16.13.1",
+    "react-lazy": "^1.1.0",
     "react-moment": "^0.9.7",
     "react-redux": "^5.1.1",
     "react-redux-firebase": "^2.2.6",

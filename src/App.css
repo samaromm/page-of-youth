@@ -1,0 +1,20 @@
+.headerAnch {
+  color: white;
+  display: flex;
+  text-transform: uppercase;
+  align-items: center;
+  font-size: 1.2rem;
+  padding: 1rem;
+  margin: 0 1rem;
+  border-bottom: 2px solid transparent;
+  font-weight: 400;
+  line-height: 1em;
+}
+
+.headerAnch:hover {
+  border-bottom: 2px solid white;
+}
+
+.forActive {
+  border-bottom: 1px solid white;
+}

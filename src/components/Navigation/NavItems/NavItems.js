@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import { useLocation } from 'react-router-dom';
 import NavItem from './NavItem/NavItem';
 
 const Nav = styled.nav`
@@ -17,30 +17,30 @@ const Ul = styled.ul`
 
 const NavItems = ({ mobile, clicked, loggedIn }) => {
   let links;
-
+  let location = useLocation();
   if (loggedIn.uid) {
     links = (
       <Ul mobile={mobile}>
-        <NavItem mobile={mobile} clicked={clicked} link="/">
+        <a href="/" mobile={mobile} clicked={clicked} className={location.pathname=="/"?'forActive headerAnch':'headerAnch'}>
           Home
-        </NavItem>
-        <NavItem mobile={mobile} clicked={clicked} link="/profile">
+        </a>
+        <a mobile={mobile} clicked={clicked} href="/profile" className={location.pathname=="/profile"?'forActive headerAnch':'headerAnch'}>
           Profile
-        </NavItem>
-        <NavItem mobile={mobile} clicked={clicked} link="/logout">
+        </a>
+        <a mobile={mobile} clicked={clicked} href="/logout" className={location.pathname=="/logout"?'forActive headerAnch':'headerAnch'}>
           Logout
-        </NavItem>
+        </a>
       </Ul>
     );
   } else {
     links = (
       <Ul mobile={mobile}>
-        <NavItem mobile={mobile} clicked={clicked} link="/login">
+        <a mobile={mobile} clicked={clicked} href="/login" className={location.pathname=="/login"?'forActive headerAnch':'headerAnch'}>
           Login
-        </NavItem>
-        <NavItem mobile={mobile} clicked={clicked} link="/signup">
+        </a>
+        <a mobile={mobile} clicked={clicked} href="/signup" className={location.pathname=="/signup"?'forActive headerAnch':'headerAnch'}>
           Signup
-        </NavItem>
+        </a>
       </Ul>
     );
   }
