@@ -17,7 +17,6 @@ import styled from "styled-components";
 import * as actions from "../../../store/actions/";
 
 const localizer = momentLocalizer(moment);
-const propTypes = {};
 
 const ButtonsWrapper = styled.div`
   display: flex;
@@ -37,51 +36,54 @@ const TodoSchema = Yup.object().shape({
   todo: Yup.string().required("The todo is required.").min(4, "Too short."),
 });
 
-const AddTodo = ({ events, addTodo, loading, error }) => {
-  const [isOpened, setisOpened] = useState(false);
-  const [startVal, setStartVal] = useState("Tue July 21 2020 19:30:00 GMT+0300 (Arabian Standard Time)");
-  const [endVal, setEndVal] = useState("Wed July 22 2020 19:30:00 GMT+0300 (Arabian Standard Time)");
+class AddTodo extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpened: false,
+      startVal: "Tue July 21 2020 19:30:00 GMT+0300 (Arabian Standard Time)",
+      endVal: "Wed July 22 2020 19:30:00 GMT+0300 (Arabian Standard Time)",
+    };
+  }
 
-  const toggleAddModal = ({ start, end }) => {
-    setisOpened(!isOpened);
-    setStartVal(start.toString());
-    setEndVal(end.toString())
+  toggleAddModal = ({ start, end }) => {
+    const startTime = start.toString();
+    const endTime = end.toString();
+    this.setState(
+      {
+        startVal: startTime,
+        endVal: endTime,
+        isOpened: !this.state.isOpened,}  
+    );
   };
 
-  return (
-    <>
-      <Calendar
-        selectable
-        localizer={localizer}
-        events={events}
-        defaultView={Views.Month}
-        views={['month', 'agenda']}
-        scrollToTime={new Date(1970, 1, 1, 6)}
-        defaultDate={moment().toDate()}
-        onSelectEvent={(event) => alert(event.title)}
-        onSelectSlot={toggleAddModal}
-        style={{ height: "100vh", margin: "20px", width: "100vh" }}
-      />
-      <Modal opened={isOpened} close={() => setisOpened(false)}>
+  open=()=>{
+    this.setState({ isOpened: !this.state.isOpened})
+  }
+
+  openModal = () => {
+    return (
+      <Modal opened={this.state.isOpened} close={() => this.open()}>
         <Heading noMargin size="h1" color="white">
           Add your new todo
-          {console.log(startVal)}
         </Heading>
         <Heading bold size="h4" color="white">
           Type your todo and press add
         </Heading>
         <Formik
           initialValues={{
-            title: '',
-            start:startVal,
-            end:endVal
+            title: "",
+            start: this.state.startVal,
+            end: this.state.endVal,
           }}
           validationSchema={TodoSchema}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
-            const res = await addTodo(values);
+            const res = await this.props.addTodo(values);
             setSubmitting(false);
             if (res) {
-              setisOpened(false);
+              this.setState({
+                isOpened: false,
+              });
             }
             resetForm();
           }}
@@ -100,26 +102,46 @@ const AddTodo = ({ events, addTodo, loading, error }) => {
                   color="main"
                   type="submit"
                   disabled={!isValid || isSubmitting}
-                  loading={loading ? 'Adding...' : null}
+                  loading={this.props.loading ? "Adding..." : null}
                 >
                   Add todo
                 </Button>
-                <Button color="main" contain onClick={() => setisOpened(false)}>
+                <Button color="main" contain onClick={() => this.open()}>
                   Cancel
                 </Button>
               </ButtonsWrapper>
               <MessageWrapper>
-                <Message error show={error}>
-                  {error}
+                <Message error show={this.props.error}>
+                  {this.props.error}
                 </Message>
               </MessageWrapper>
             </StyledForm>
           )}
         </Formik>
       </Modal>
-    </>
-  );
-};
+    );
+  };
+
+  render() {
+    return (
+      <>
+        <Calendar
+          selectable
+          localizer={localizer}
+          events={this.props.events}
+          defaultView={Views.Month}
+          views={["month", "agenda"]}
+          scrollToTime={new Date(1970, 1, 1, 6)}
+          defaultDate={moment().toDate()}
+          onSelectEvent={(event) => alert(event.title)}
+          onSelectSlot={this.toggleAddModal}
+          style={{ height: "100vh", margin: "20px", width: "100vh" }}
+        />
+        {this.state.isOpened?this.openModal():""}
+      </>
+    );
+  }
+}
 
 const mapStateToProps = ({ todos }) => ({
   loading: todos.loading,
