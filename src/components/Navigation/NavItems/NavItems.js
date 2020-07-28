@@ -24,23 +24,23 @@ const NavItems = ({ mobile, clicked, loggedIn }) => {
         <a href="/" mobile={mobile} clicked={clicked} className={location.pathname=="/"?'forActive headerAnch':'headerAnch'}>
           Home
         </a>
-        <a mobile={mobile} clicked={clicked} href="/profile" className={location.pathname=="/profile"?'forActive headerAnch':'headerAnch'}>
+        <NavItem mobile={mobile} clicked={clicked} link="/profile">
           Profile
-        </a>
-        <a mobile={mobile} clicked={clicked} href="/logout" className={location.pathname=="/logout"?'forActive headerAnch':'headerAnch'}>
+        </NavItem>
+        <NavItem mobile={mobile} clicked={clicked} link="/logout">
           Logout
-        </a>
+        </NavItem>
       </Ul>
     );
   } else {
     links = (
       <Ul mobile={mobile}>
-        <a mobile={mobile} clicked={clicked} href="/login" className={location.pathname=="/login"?'forActive headerAnch':'headerAnch'}>
+        <NavItem mobile={mobile} clicked={clicked} link="/login">
           Login
-        </a>
-        <a mobile={mobile} clicked={clicked} href="/signup" className={location.pathname=="/signup"?'forActive headerAnch':'headerAnch'}>
+        </NavItem>
+        <NavItem mobile={mobile} clicked={clicked} link="/signup">
           Signup
-        </a>
+        </NavItem>
       </Ul>
     );
   }
