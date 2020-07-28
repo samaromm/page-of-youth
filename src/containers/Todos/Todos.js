@@ -15,6 +15,8 @@ const Todos = ({ todos, requested, userId }) => {
             id: todo.id,
             start: todo.start,
             end: todo.end,
+            diary: todo.diary,
+            complete: todo.complete
           })
       ))
     };

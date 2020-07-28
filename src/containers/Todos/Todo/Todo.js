@@ -75,6 +75,8 @@ class AddTodo extends React.Component {
             title: "",
             start: this.state.startVal,
             end: this.state.endVal,
+            diary:"",
+            complete:"Uncompleted"
           }}
           validationSchema={TodoSchema}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
@@ -96,6 +98,34 @@ class AddTodo extends React.Component {
                 placeholder="Write your todo..."
                 component={Input}
               />
+              <Field
+                type="textarea"
+                name="diary"
+                placeholder="(Optional) Enter your diary for today..."
+                component={Input}
+                style={{height:"100px"}}
+              />
+              <label for="Uncompleted">
+              <Field
+                type="radio"
+                name="complete"
+                id="Uncompleted"
+                value="Uncompleted"
+                checked
+                component={Input}
+              />
+              Uncompleted
+              </label>
+              <label for="Completed">
+              <Field
+                type="radio"
+                name="complete"
+                id="Completed"
+                value="Completed"
+                component={Input}
+              />
+              Completed
+              </label>
               <ButtonsWrapper>
                 <Button
                   contain

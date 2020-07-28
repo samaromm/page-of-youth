@@ -17,3 +17,13 @@
 .forActive {
   border-bottom: 1px solid white;
 }
+
+.choice {
+    display: flex;
+    justify-content: center;
+    margin:0
+    
+}
+.choice input {
+    vertical-align: middle;
+}
