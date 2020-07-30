@@ -21,7 +21,7 @@ const NavItems = ({ mobile, clicked, loggedIn }) => {
   if (loggedIn.uid) {
     links = (
       <Ul mobile={mobile}>
-        <a href="/" mobile={mobile} clicked={clicked} className={location.pathname=="/"?'forActive headerAnch':'headerAnch'}>
+        <a href="/" mobile={mobile} clicked={clicked} className={location.pathname==="/"?'forActive headerAnch':'headerAnch'}>
           Home
         </a>
         <NavItem mobile={mobile} clicked={clicked} link="/profile">

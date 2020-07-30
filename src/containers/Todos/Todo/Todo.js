@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Calendar, Views, momentLocalizer } from "react-big-calendar";
 import { connect } from "react-redux";
 import * as Yup from "yup";
@@ -169,6 +169,20 @@ class AddTodo extends React.Component {
           onSelectEvent={(event) => alert(event.title)}
           onSelectSlot={this.toggleAddModal}
           style={{ height: "100vh", margin: "20px", width: "100vh" }}
+          eventPropGetter={
+            (event, start, end, isSelected) => {
+              let newStyle = {
+                backgroundColor: "#F43F54",
+              };
+              if (event.complete=="Completed"){
+                newStyle.backgroundColor = "#1ec91e"
+              }
+              return {
+                className: "",
+                style: newStyle
+              };
+            }
+          }
         />
         {this.state.isOpened ? this.openModal() : ""}
       </>
