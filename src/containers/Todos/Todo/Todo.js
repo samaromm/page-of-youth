@@ -49,17 +49,16 @@ class AddTodo extends React.Component {
   toggleAddModal = ({ start, end }) => {
     const startTime = start.toString();
     const endTime = end.toString();
-    this.setState(
-      {
-        startVal: startTime,
-        endVal: endTime,
-        isOpened: !this.state.isOpened,}  
-    );
+    this.setState({
+      startVal: startTime,
+      endVal: endTime,
+      isOpened: !this.state.isOpened,
+    });
   };
 
-  open=()=>{
-    this.setState({ isOpened: !this.state.isOpened})
-  }
+  open = () => {
+    this.setState({ isOpened: !this.state.isOpened });
+  };
 
   openModal = () => {
     return (
@@ -75,8 +74,8 @@ class AddTodo extends React.Component {
             title: "",
             start: this.state.startVal,
             end: this.state.endVal,
-            diary:"",
-            complete:"Uncompleted"
+            diary: "",
+            complete: "Uncompleted",
           }}
           validationSchema={TodoSchema}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
@@ -103,29 +102,33 @@ class AddTodo extends React.Component {
                 name="diary"
                 placeholder="(Optional) Enter your diary for today..."
                 component={Input}
-                style={{height:"100px"}}
+                style={{ height: "100px" }}
               />
-              <label for="Uncompleted">
-              <Field
-                type="radio"
-                name="complete"
-                id="Uncompleted"
-                value="Uncompleted"
-                checked
-                component={Input}
-              />
-              Uncompleted
-              </label>
-              <label for="Completed">
-              <Field
-                type="radio"
-                name="complete"
-                id="Completed"
-                value="Completed"
-                component={Input}
-              />
-              Completed
-              </label>
+              <div className="radioButWrapper">
+                <label for="Uncompleted" >
+                  <Field
+                    type="radio"
+                    name="complete"
+                    id="Uncompleted"
+                    value="Uncompleted"
+                    checked
+                    component={Input}
+                    className="radioBut"
+                  />
+                  <p className="labelText">Uncompleted</p>
+                </label>
+                <label for="Completed">
+                  <Field
+                    type="radio"
+                    name="complete"
+                    id="Completed"
+                    value="Completed"
+                    component={Input}
+                    className="radioBut"
+                  />
+                  <p className="labelText">Completed</p>
+                </label>
+              </div>
               <ButtonsWrapper>
                 <Button
                   contain
@@ -167,7 +170,7 @@ class AddTodo extends React.Component {
           onSelectSlot={this.toggleAddModal}
           style={{ height: "100vh", margin: "20px", width: "100vh" }}
         />
-        {this.state.isOpened?this.openModal():""}
+        {this.state.isOpened ? this.openModal() : ""}
       </>
     );
   }

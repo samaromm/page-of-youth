@@ -18,12 +18,25 @@
   border-bottom: 1px solid white;
 }
 
-.choice {
-    display: flex;
-    justify-content: center;
-    margin:0
-    
+.radioButWrapper{
+  display: flex;
+  align-items: center;
+  padding: 9px;
+  background-color: #FFD2D2;
 }
-.choice input {
-    vertical-align: middle;
+
+label {
+  padding: 4px 17px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #F43F54;
 }
+
+.radioBut{
+  height:16px;
+}
+
+.labelText{
+  line-height: 0;
+}
+
