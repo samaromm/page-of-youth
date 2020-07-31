@@ -16,7 +16,7 @@ export const addTodo = data => async (
       .get();
     const newTodo = {
       id: new Date().valueOf(),
-      title: data.todo,
+      title: data.title,
       start:data.start,
       end:data.end,
       diary: data.diary,

@@ -33,7 +33,7 @@ const MessageWrapper = styled.div`
 `;
 
 const TodoSchema = Yup.object().shape({
-  todo: Yup.string().required("The todo is required.").min(4, "Too short."),
+  title: Yup.string().required("The todo is required.").min(4, "Too short."),
 });
 
 class AddTodo extends React.Component {
@@ -47,8 +47,6 @@ class AddTodo extends React.Component {
       endVal: "Wed July 22 2020 19:30:00 GMT+0300 (Arabian Standard Time)",
     };
   }
-
-  loadingText = "Adding...";
 
   editEvent=({event})=>{
     this.setState({
@@ -68,7 +66,7 @@ class AddTodo extends React.Component {
   };
 
   open = () => {
-    this.setState({ isOpened: !this.state.isOpened });
+    this.setState({ isOpened: !this.state.isOpened, isEditing:false });
   };
 
   openModal = () => {
@@ -77,7 +75,6 @@ class AddTodo extends React.Component {
         <Heading noMargin size="h1" color="white">
           {this.state.isEditing ? "Edit your todo" : "Add your new todo"}
         </Heading>
-        {console.log(this.state.editTodo)}
         <Heading bold size="h4" color="white">
           {this.state.isEditing
             ? "Edit your todo and tap edit"
@@ -152,7 +149,7 @@ class AddTodo extends React.Component {
                   color="main"
                   type="submit"
                   disabled={!isValid || isSubmitting}
-                  loading={this.props.loading ? this.props.loadingText : null}
+                  loading={this.props.loading ? "Saving..." : null}
                 >
                   {this.state.isEditing ? 'Edit todo' : 'Add todo'}
                 </Button>
