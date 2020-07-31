@@ -20,23 +20,21 @@
 
 .radioButWrapper{
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  justify-content: space-evenly;
   padding: 9px;
   background-color: #FFD2D2;
 }
 
 label {
-  padding: 4px 17px;
+  padding: 4px;
   font-size: 16px;
   cursor: pointer;
   color: #F43F54;
+  line-height: 0;
 }
 
 .radioBut{
   height:16px;
-}
-
-.labelText{
-  line-height: 0;
 }
 

@@ -40,20 +40,23 @@ class AddTodo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isEditing:false,
-      editTodo:{},
+      isEditing: false,
+      editTodo: {},
       isOpened: false,
       startVal: "Tue July 21 2020 19:30:00 GMT+0300 (Arabian Standard Time)",
       endVal: "Wed July 22 2020 19:30:00 GMT+0300 (Arabian Standard Time)",
     };
   }
 
-  editEvent=({event})=>{
-    this.setState({
-      isEditing:true,
-      editTodo:event
-    },this.open())
-  }
+  editEvent = ({ event }) => {
+    this.setState(
+      {
+        isEditing: true,
+        editTodo: event,
+      },
+      this.open()
+    );
+  };
 
   toggleAddModal = ({ start, end }) => {
     const startTime = start.toString();
@@ -66,7 +69,7 @@ class AddTodo extends React.Component {
   };
 
   open = () => {
-    this.setState({ isOpened: !this.state.isOpened, isEditing:false });
+    this.setState({ isOpened: !this.state.isOpened, isEditing: false });
   };
 
   openModal = () => {
@@ -83,10 +86,16 @@ class AddTodo extends React.Component {
         <Formik
           initialValues={{
             title: this.state.isEditing ? this.state.editTodo.title : "",
-            start: this.state.isEditing ? this.state.editTodo.start :this.state.startVal,
-            end: this.state.isEditing ? this.state.editTodo.end :this.state.endVal,
-            diary: this.state.isEditing ? this.state.editTodo.diary :"",
-            complete: this.state.isEditing? this.state.editTodo.complete :"Uncompleted",
+            start: this.state.isEditing
+              ? this.state.editTodo.start
+              : this.state.startVal,
+            end: this.state.isEditing
+              ? this.state.editTodo.end
+              : this.state.endVal,
+            diary: this.state.isEditing ? this.state.editTodo.diary : "",
+            complete: this.state.isEditing
+              ? this.state.editTodo.complete
+              :"false" ,
           }}
           validationSchema={TodoSchema}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
@@ -96,7 +105,7 @@ class AddTodo extends React.Component {
             if (res) {
               this.setState({
                 isOpened: false,
-                isEditing:false
+                isEditing: false,
               });
             }
             setSubmitting(false);
@@ -119,28 +128,17 @@ class AddTodo extends React.Component {
                 style={{ height: "100px" }}
               />
               <div className="radioButWrapper">
-                <label for="Uncompleted">
+                <label for="complete">
                   <Field
-                    type="radio"
+                    type="checkbox"
                     name="complete"
-                    id="Uncompleted"
-                    value="Uncompleted"
-                    checked
+                    id="complete"
+                    value="complete"
                     component={Input}
                     className="radioBut"
+                    defaultChecked={this.state.isEditing?this.state.editTodo.complete:"false"}
                   />
-                  <p className="labelText">Uncompleted</p>
-                </label>
-                <label for="Completed">
-                  <Field
-                    type="radio"
-                    name="complete"
-                    id="Completed"
-                    value="Completed"
-                    component={Input}
-                    className="radioBut"
-                  />
-                  <p className="labelText">Completed</p>
+                  Completed
                 </label>
               </div>
               <ButtonsWrapper>
@@ -151,9 +149,16 @@ class AddTodo extends React.Component {
                   disabled={!isValid || isSubmitting}
                   loading={this.props.loading ? "Saving..." : null}
                 >
-                  {this.state.isEditing ? 'Edit todo' : 'Add todo'}
+                  {this.state.isEditing ? "Edit todo" : "Add todo"}
                 </Button>
-                <Button color="main" contain onClick={() => {this.open();  resetForm();}}>
+                <Button
+                  color="main"
+                  contain
+                  onClick={() => {
+                    this.open();
+                    resetForm();
+                  }}
+                >
                   Cancel
                 </Button>
               </ButtonsWrapper>
@@ -180,14 +185,14 @@ class AddTodo extends React.Component {
           views={["month", "agenda"]}
           scrollToTime={new Date(1970, 1, 1, 6)}
           defaultDate={moment().toDate()}
-          onSelectEvent={(event) => this.editEvent({event})}
+          onSelectEvent={(event) => this.editEvent({ event })}
           onSelectSlot={this.toggleAddModal}
           style={{ height: "100vh", margin: "20px", width: "100vh" }}
           eventPropGetter={(event, start, end, isSelected) => {
             let newStyle = {
               backgroundColor: "#F43F54",
             };
-            if (event.complete === "Completed") {
+            if (event.complete) {
               newStyle.backgroundColor = "#1ec91e";
             }
             return {
