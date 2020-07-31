@@ -319,10 +319,12 @@ button.rbc-input::-moz-focus-inner {
 
 .rbc-agenda-date-cell,
 .rbc-agenda-time-cell {
-  white-space: nowrap; }
+  white-space: nowrap; 
+  color:white;}
 
 .rbc-agenda-event-cell {
-  width: 100%; }
+  width: 100%; 
+  color: white;}
 
 .rbc-time-column {
   display: flex;

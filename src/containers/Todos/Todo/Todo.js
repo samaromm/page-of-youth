@@ -174,7 +174,7 @@ class AddTodo extends React.Component {
               let newStyle = {
                 backgroundColor: "#F43F54",
               };
-              if (event.complete=="Completed"){
+              if (event.complete==="Completed"){
                 newStyle.backgroundColor = "#1ec91e"
               }
               return {
