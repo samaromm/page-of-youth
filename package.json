@@ -9,6 +9,7 @@
     "firebase": "^7.16.1",
     "formik": "^1.5.4",
     "globalize": "^1.5.0",
+    "mdbreact": "^4.27.0",
     "mobx-react": "^6.2.3",
     "moment": "^2.27.0",
     "react": "^16.13.1",

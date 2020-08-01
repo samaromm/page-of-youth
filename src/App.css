@@ -23,14 +23,15 @@
   align-items: flex-end;
   justify-content: space-evenly;
   padding: 9px;
-  background-color: #FFD2D2;
+  background-color: #FF8E8E;
 }
 
 label {
-  padding: 4px;
+  padding: 3px;
+  margin: 0;
   font-size: 16px;
   cursor: pointer;
-  color: #F43F54;
+  color: #fff;
   line-height: 0;
 }
 
