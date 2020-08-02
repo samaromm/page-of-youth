@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import * as Yup from "yup";
 import { Formik, Field } from "formik";
 import moment from "moment";
+import DeleteTodo from "./DeleteTodo";
 
 import "./calender.css";
 import Button from "../../../components/UI/Forms/Button/Button";
@@ -14,7 +15,7 @@ import Message from "../../../components/UI/Message/Message";
 import { StyledForm } from "../../../layout/elements";
 import styled from "styled-components";
 
-import * as actions from "../../../store/actions/";
+import * as actions from "../../../store/actions";
 
 const localizer = momentLocalizer(moment);
 
@@ -41,6 +42,7 @@ class AddTodo extends React.Component {
     super(props);
     this.state = {
       isEditing: false,
+      isDeleting: false,
       editTodo: {},
       isOpened: false,
       startVal: "Tue July 21 2020 19:30:00 GMT+0300 (Arabian Standard Time)",
@@ -54,7 +56,7 @@ class AddTodo extends React.Component {
         isEditing: true,
         editTodo: event,
       },
-      this.open()
+      this.controlModal()
     );
   };
 
@@ -68,13 +70,17 @@ class AddTodo extends React.Component {
     });
   };
 
-  open = () => {
-    this.setState({ isOpened: !this.state.isOpened, isEditing: false });
+  controlModal = () => {
+    this.setState({
+      isOpened: !this.state.isOpened,
+      isEditing: !this.state.isEditing,
+      isDeleting: !this.state.isDeleting,
+    });
   };
 
   openModal = () => {
     return (
-      <Modal opened={this.state.isOpened} close={() => this.open()}>
+      <Modal opened={this.state.isOpened} close={() => this.controlModal()}>
         <Heading noMargin size="h1" color="white">
           {this.state.isEditing ? "Edit your todo" : "Add your new todo"}
         </Heading>
@@ -95,7 +101,7 @@ class AddTodo extends React.Component {
             diary: this.state.isEditing ? this.state.editTodo.diary : "",
             complete: this.state.isEditing
               ? this.state.editTodo.complete
-              :"false" ,
+              : "false",
           }}
           validationSchema={TodoSchema}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
@@ -136,7 +142,11 @@ class AddTodo extends React.Component {
                     value="complete"
                     component={Input}
                     className="radioBut"
-                    defaultChecked={this.state.isEditing?this.state.editTodo.complete:"false"}
+                    defaultChecked={
+                      this.state.isEditing
+                        ? this.state.editTodo.complete
+                        : "false"
+                    }
                   />
                   Completed
                 </label>
@@ -155,7 +165,17 @@ class AddTodo extends React.Component {
                   color="main"
                   contain
                   onClick={() => {
-                    this.open();
+                    this.setState({ isDeleting: true });
+                  }}
+                  className={!this.state.isEditing ? "hideButton" : ""}
+                >
+                  Delete
+                </Button>
+                <Button
+                  color="main"
+                  contain
+                  onClick={() => {
+                    this.controlModal();
                     resetForm();
                   }}
                 >
@@ -202,6 +222,11 @@ class AddTodo extends React.Component {
           }}
         />
         {this.state.isOpened ? this.openModal() : ""}
+        <DeleteTodo
+          todo={this.state.editTodo}
+          show={this.state.isDeleting}
+          close={() => this.controlModal()}
+        />
       </>
     );
   }
