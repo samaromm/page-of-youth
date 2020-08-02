@@ -73,10 +73,18 @@ class AddTodo extends React.Component {
   controlModal = () => {
     this.setState({
       isOpened: !this.state.isOpened,
-      isEditing: !this.state.isEditing,
-      isDeleting: !this.state.isDeleting,
+      isEditing: false,
+      isDeleting: false,
     });
   };
+
+  close=()=>{
+    this.setState({
+      isOpened: false,
+      isEditing: false,
+      isDeleting: false,
+    });
+  }
 
   openModal = () => {
     return (
@@ -165,7 +173,8 @@ class AddTodo extends React.Component {
                   color="main"
                   contain
                   onClick={() => {
-                    this.setState({ isDeleting: true });
+                    this.setState({ isDeleting: true});
+                    resetForm();
                   }}
                   className={!this.state.isEditing ? "hideButton" : ""}
                 >
@@ -225,7 +234,7 @@ class AddTodo extends React.Component {
         <DeleteTodo
           todo={this.state.editTodo}
           show={this.state.isDeleting}
-          close={() => this.controlModal()}
+          close={() => this.close()}
         />
       </>
     );
