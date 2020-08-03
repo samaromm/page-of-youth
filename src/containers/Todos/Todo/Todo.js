@@ -78,13 +78,13 @@ class AddTodo extends React.Component {
     });
   };
 
-  close=()=>{
+  close = () => {
     this.setState({
       isOpened: false,
       isEditing: false,
       isDeleting: false,
     });
-  }
+  };
 
   openModal = () => {
     return (
@@ -133,6 +133,7 @@ class AddTodo extends React.Component {
                 name="title"
                 placeholder="Write your todo..."
                 component={Input}
+                className="fieldMargin"
               />
               <Field
                 type="textarea"
@@ -140,25 +141,20 @@ class AddTodo extends React.Component {
                 placeholder="(Optional) Enter your diary for today..."
                 component={Input}
                 style={{ height: "100px" }}
+                className="fieldMargin"
               />
-              <div className="radioButWrapper">
-                <label for="complete">
-                  <Field
-                    type="checkbox"
-                    name="complete"
-                    id="complete"
-                    value="complete"
-                    component={Input}
-                    className="radioBut"
-                    defaultChecked={
-                      this.state.isEditing
-                        ? this.state.editTodo.complete
-                        : "false"
-                    }
-                  />
-                  Completed
-                </label>
-              </div>
+              <Field
+                type="checkbox"
+                name="complete"
+                id="complete"
+                value="complete"
+                component={Input}
+                className="radioBut"
+                defaultChecked={
+                  this.state.isEditing ? this.state.editTodo.complete : "false"
+                }
+              />
+              <label for="complete">Completed</label>
               <ButtonsWrapper>
                 <Button
                   contain
@@ -173,7 +169,7 @@ class AddTodo extends React.Component {
                   color="main"
                   contain
                   onClick={() => {
-                    this.setState({ isDeleting: true});
+                    this.setState({ isDeleting: true });
                     resetForm();
                   }}
                   className={!this.state.isEditing ? "hideButton" : ""}

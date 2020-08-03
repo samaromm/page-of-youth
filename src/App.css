@@ -18,29 +18,24 @@
   border-bottom: 1px solid white;
 }
 
-.radioButWrapper{
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-evenly;
-  padding: 9px;
-  background-color: #FF8E8E;
-  margin-bottom:10px;
+.hideButton{
+  display: none;
 }
 
 label {
-  padding: 6px 3px;
-  margin: 0;
+  margin-bottom: 2rem;
   font-size: 16px;
   cursor: pointer;
-  color: #fff;
-  line-height: 0;
+  color: #000;
 }
 
 .radioBut{
   height:16px;
 }
 
-.hideButton{
-  display: none;
+.fieldMargin{
+  margin-bottom: 3rem;
 }
+
+
 

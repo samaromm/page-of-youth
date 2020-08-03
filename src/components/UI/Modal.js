@@ -32,7 +32,7 @@ const InsideWrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  padding: 4rem 3rem;
+  padding: 2rem;
 `;
 
 const Modal = ({ opened, close, children }) => {

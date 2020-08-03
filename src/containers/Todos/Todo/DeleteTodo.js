@@ -17,14 +17,14 @@ const ButtonsWrapper = styled.div`
 
 const TodoWrapper = styled.div`
   margin: 1rem 0rem;
-  font-size: 1.3rem;
+  font-size: 2rem;
   text-align: center;
-  color: var(--color-black);
+  color: #F43F54;
 `;
 
 const MessageWrapper = styled.div`
   position: absolute;
-  bottom: 2rem;
+  bottom: 1rem;
   width: 100%;
   padding: 0 3rem;
 `;
@@ -39,30 +39,24 @@ const DeleteTodo = ({ show, close, todo, deleteTodo, error, loading }) => {
         Are you sure you want to delete this todo?
       </Heading>
       <TodoWrapper>{todo.title}</TodoWrapper>
-        <ButtonsWrapper>
-          <Button
-            contain
-            onClick={async () => {
-              const res = await deleteTodo(todo.id);
-              if (res) {
-                close();
-              }
-            }}
-            disabled={loading}
-            loading={loading ? "Deleting..." : null}
-            type="submit"
-          >
-            Delete
-          </Button>
-          <Button color="main" contain onClick={close}>
-            Cancel
-          </Button>
-        </ButtonsWrapper>
-        <MessageWrapper>
-          <Message error show={error}>
-            {error}
-          </Message>
-        </MessageWrapper>
+      <ButtonsWrapper>
+        <Button
+          contain
+          onClick={async () => await deleteTodo(todo.id)}
+          disabled={loading}
+          loading={loading ? 'Deleting...' : null}
+        >
+          Delete
+        </Button>
+        <Button color="main" contain onClick={close}>
+          Cancel
+        </Button>
+      </ButtonsWrapper>
+      <MessageWrapper>
+        <Message error show={error}>
+          {error}
+        </Message>
+      </MessageWrapper>
     </Modal>
   );
 };
@@ -76,4 +70,7 @@ const mapDispatchToProps = {
   deleteTodo: actions.deleteTodo,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DeleteTodo);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DeleteTodo);

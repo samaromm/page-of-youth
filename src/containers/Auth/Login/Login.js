@@ -59,12 +59,15 @@ const Login = ({ login, loading, error, cleanUp }) => {
               name="email"
               placeholder="Your email..."
               component={Input}
+              className="fieldMargin"
+              
             />
             <Field
               type="password"
               name="password"
               placeholder="Your password..."
               component={Input}
+              className="fieldMargin"
             />
             <Button
               disabled={!isValid || isSubmitting}

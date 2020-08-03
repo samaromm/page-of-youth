@@ -113,30 +113,35 @@ const Profile = ({
                 name="firstName"
                 placeholder="Your first name..."
                 component={Input}
+                className="fieldMargin"
               />
               <Field
                 type="text"
                 name="lastName"
                 placeholder="Your last name..."
                 component={Input}
+                className="fieldMargin"
               />
               <Field
                 type="email"
                 name="email"
                 placeholder="Your email..."
                 component={Input}
+                className="fieldMargin"
               />
               <Field
                 type="password"
                 name="password"
                 placeholder="Your password..."
                 component={Input}
+                className="fieldMargin"
               />
               <Field
                 type="password"
                 name="confirmPassword"
                 placeholder="Re-type your password..."
                 component={Input}
+                className="fieldMargin"
               />
               <Button
                 disabled={!isValid || isSubmitting}
