@@ -178,7 +178,6 @@ const Profile = ({
           <Button
             contain
             onClick={() => deleteUser()}
-            color="red"
             disabled={loadingDelete}
             loading={loadingDelete ? 'Deleting...' : null}
           >

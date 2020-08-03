@@ -45,6 +45,7 @@ const DeleteTodo = ({ show, close, todo, deleteTodo, error, loading }) => {
           onClick={async () => await deleteTodo(todo.id)}
           disabled={loading}
           loading={loading ? 'Deleting...' : null}
+          type="submit"
         >
           Delete
         </Button>

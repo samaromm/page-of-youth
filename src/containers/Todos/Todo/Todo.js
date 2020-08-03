@@ -173,6 +173,7 @@ class AddTodo extends React.Component {
                     resetForm();
                   }}
                   className={!this.state.isEditing ? "hideButton" : ""}
+                  type="submit"
                 >
                   Delete
                 </Button>
