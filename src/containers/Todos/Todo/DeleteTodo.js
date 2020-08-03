@@ -19,7 +19,7 @@ const TodoWrapper = styled.div`
   margin: 1rem 0rem;
   font-size: 2rem;
   text-align: center;
-  color: #F43F54;
+  color: #f43f54;
 `;
 
 const MessageWrapper = styled.div`
@@ -42,10 +42,12 @@ const DeleteTodo = ({ show, close, todo, deleteTodo, error, loading }) => {
       <ButtonsWrapper>
         <Button
           contain
-          onClick={async () => await deleteTodo(todo.id)}
+          onClick={async () => {
+              await deleteTodo(todo.id);
+              window.location.reload(false);
+          }}
           disabled={loading}
-          loading={loading ? 'Deleting...' : null}
-          type="submit"
+          loading={loading ? "Deleting..." : null}
         >
           Delete
         </Button>
@@ -71,7 +73,4 @@ const mapDispatchToProps = {
   deleteTodo: actions.deleteTodo,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DeleteTodo);
+export default connect(mapStateToProps, mapDispatchToProps)(DeleteTodo);
